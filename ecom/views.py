@@ -24,7 +24,7 @@ def index(request):
 				login(request, user)
 				return HttpResponseRedirect(reverse('ecom:main'))			
 
-	return render(request, 'ecom/index.html',{})
+	return render(request, 'ecom/index.jinja',{})
 
 
 def register(request):
@@ -40,14 +40,14 @@ def register(request):
 			else:
 				return HttpResponseRedirect(reverse('ecom:main'))
 
-		return render(request, 'ecom/register.html', {'form':form})
-	return render(request, 'ecom/register.html', {'form':form})	
+		return render(request, 'ecom/register.jinja', {'form':form})
+	return render(request, 'ecom/register.jinja', {'form':form})	
 
 
 def main(request):
 
 	if not request.user.is_authenticated:
-		return render(request, 'ecom/index.html', {})
+		return render(request, 'ecom/index.jinja', {})
 	else:
 		
 		if request.user.is_vendor:
@@ -117,7 +117,7 @@ def main(request):
 				'check_vendor' : request.user.is_vendor,
 				'list_products' : list_products
 				}
-				return render(request, 'ecom/main.html', ctx1)
+				return render(request, 'ecom/main.jinja', ctx1)
 			
 			list_products = LedgerTable.objects.filter(profileuser_id = userid)
 			ctx1 = {
@@ -125,7 +125,7 @@ def main(request):
 				'check_vendor' : request.user.is_vendor,
 				'list_products' : list_products
 				}
-			return render(request, 'ecom/main.html', ctx1)
+			return render(request, 'ecom/main.jinja', ctx1)
 		
 		#code for viewers to display maximum priced each phone
 		all_products = LedgerTable.objects.all().order_by('-product_price')
@@ -144,7 +144,7 @@ def main(request):
 			'all_products' : all_products,
 			'check_vendor' : request.user.is_vendor
 		}
-		return render(request, 'ecom/main.html', ctx2)
+		return render(request, 'ecom/main.jinja', ctx2)
 
 
 def change_price(request, ledger_id):
@@ -163,7 +163,7 @@ def change_price(request, ledger_id):
 			'list_products':list_products,
 
 		}
-		return render(request, 'ecom/main.html', ctx)
+		return render(request, 'ecom/main.jinja', ctx)
 	ctx={}
 	list_products = LedgerTable.objects.all()
 	ctx = {
@@ -172,7 +172,7 @@ def change_price(request, ledger_id):
 			'list_products':list_products,
 
 		} 
-	return render(request, 'ecom/main.html', ctx)
+	return render(request, 'ecom/main.jinja', ctx)
 
 def logout_func(request):
 	logout(request)

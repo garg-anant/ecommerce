@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ecom',
     'crispy_forms',
+    'jinja2',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +61,16 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 TEMPLATES = [
+
+    {
+        "BACKEND": "django.template.backends.jinja2.Jinja2",
+        "DIRS":[],
+        "APP_DIRS": True,
+        "OPTIONS": {
+        # "match_extension": ".jinja",
+            }
+    },
+
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
